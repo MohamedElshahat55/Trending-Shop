@@ -1,0 +1,87 @@
+<section
+  class="px-10 md:px-0 md:w-1/3 mx-auto container text-center font-karla h-screen flex flex-col mt-10"
+>
+  <h2 class="text-3xl my-4">Order</h2>
+  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+    <div formGroupName="shippingAddress">
+      <!-- details Field -->
+      <div class="mb-6">
+        <input
+          formControlName="details"
+          type="text"
+          class="dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-12 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          placeholder="details*"
+          [ngClass]="{
+            'border-red-500':
+              details?.invalid && (details?.dirty || details?.touched),
+            'border-gray-300': !(
+              details?.invalid &&
+              (details?.dirty || details?.touched)
+            )
+          }"
+        />
+        <div
+          *ngIf="details?.invalid && (details?.dirty || details?.touched)"
+          class="text-start text-red-600"
+        >
+          <div *ngIf="details?.errors?.['required']">*details is required.</div>
+        </div>
+      </div>
+      <!-- Phone Field -->
+      <div class="mb-6">
+        <input
+          formControlName="phone"
+          type="tel"
+          class="dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-12 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          placeholder="Phone*"
+          [ngClass]="{
+            'border-red-500':
+              phone?.invalid && (phone?.dirty || phone?.touched),
+            'border-gray-300': !(
+              phone?.invalid &&
+              (phone?.dirty || phone?.touched)
+            )
+          }"
+        />
+        <div
+          *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)"
+          class="text-start text-red-600"
+        >
+          <div *ngIf="phone?.errors?.['required']">*Phone is required.</div>
+          <div *ngIf="phone?.errors?.['pattern']">*Invalid phone number.</div>
+        </div>
+      </div>
+      <!-- city Field -->
+      <div class="mb-6">
+        <input
+          formControlName="city"
+          type="text"
+          class="dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-12 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          placeholder="city*"
+          [ngClass]="{
+            'border-red-500': city?.invalid && (city?.dirty || city?.touched),
+            'border-gray-300': !(
+              city?.invalid &&
+              (city?.dirty || city?.touched)
+            )
+          }"
+        />
+        <div
+          *ngIf="city?.invalid && (city?.dirty || city?.touched)"
+          class="text-start text-red-600"
+        >
+          <div *ngIf="city?.errors?.['required']">*city is required.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button
+        type="submit"
+        [disabled]="orderForm.invalid"
+        class="disabled:bg-blue-100 bg-blue-500 text-white w-full py-2 text-center font-mono hover:bg-blue-800 transition-colors ease-in-out"
+      >
+        Payment
+      </button>
+    </div>
+  </form>
+</section>

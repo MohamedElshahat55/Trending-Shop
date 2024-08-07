@@ -1,0 +1,36 @@
+<ng-container *ngIf="product">
+  <div class="ml-2 py-4 mx-auto">
+    <div
+      class="dark:border-blue-300 dark:border rounded-lg container mx-auto card p-4 flex flex-col justify-center gap-2 font-karla shadow-md"
+    >
+      <div>
+        <img
+          [src]="product.imageCover"
+          [alt]="product.slug"
+          class="object-cover sm:h-[100px] md:h-[450px] w-full"
+        />
+      </div>
+      <h2 class="text-sm md:text-xl">{{ product.title | slice : 0 : 20 }}</h2>
+      <span>{{ product.price | currency : "USD" }}</span>
+      <p
+        class="dark:text-white md:mt-3 leading-5 text-slate-400 text-sm md:text-md"
+      >
+        {{ product.description | slice : 0 : 25 }}...
+      </p>
+      <div class="flex items-center justify-between my-3">
+        <button
+          [routerLink]="[product.id]"
+          class="text-sm md:text-md dark:text-white px-2 py-1 text-black hover:bg-blue-300 border border-blue-300 transition-colors"
+        >
+          show details
+        </button>
+        <button
+          class="text-sm md:text-md dark:text-white px-2 py-1 text-black hover:bg-blue-300 border border-blue-300 transition-colors"
+          (click)="addProductToCart(product.id)"
+        >
+          Add to cart
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>

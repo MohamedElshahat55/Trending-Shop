@@ -1,0 +1,79 @@
+<ng-container *ngIf="Products$ | async as products">
+  <h2
+    class="text-slate-400 font-karla dark:text-white font-bold text-lg md:text-4xl pt-3 md:pt-10 text-center"
+  >
+    Show All Products
+  </h2>
+  <div class="container mx-auto p-2 md:pt-5">
+    <p-carousel
+      [value]="products"
+      [numVisible]="3"
+      [numScroll]="3"
+      [circular]="false"
+      [responsiveOptions]="responsiveOptions"
+    >
+      <ng-template let-product pTemplate="item">
+        <div class="ml-2">
+          <div
+            class="card p-3 md:p-4 flex flex-col justify-center gap-2 font-karla border border-black dark:border-blue-300 shadow-md"
+          >
+            <div>
+              <img
+                [src]="product.imageCover"
+                [alt]="product.slug"
+                class="object-cover h-70 w-full"
+              />
+            </div>
+            <h2 class="text-2xl">{{ product.title | slice : 0 : 20 }}</h2>
+            <p class="dark:text-white mt-3 leading-5 text-slate-400">
+              {{ product.description | slice : 0 : 30 }}
+            </p>
+            <div class="flex justify-between items-center px-2 my-4">
+              <span>{{ product.price | currency : "USD" }}</span>
+              <button
+                [routerLink]="['/product/', product.id]"
+                class="dark:text-white px-5 py-3 text-black hover:bg-blue-300 border border-blue-300 transition-colors"
+              >
+                show details
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="categories$ | async as categories">
+  <h2
+    class="font-karla dark:text-white text-slate-400 font-bold text-lg md:text-4xl md:py-4 text-center"
+  >
+    Show All Categories
+  </h2>
+  <div class="container mx-auto pt-2 md:pt-5">
+    <p-carousel
+      [value]="categories"
+      [numVisible]="3"
+      [numScroll]="3"
+      [circular]="false"
+      [responsiveOptions]="responsiveOptions"
+    >
+      <ng-template let-category pTemplate="item">
+        <div class="ml-2">
+          <div
+            class="card p-4 flex flex-col justify-center gap-2 font-karla border border-black dark:border-blue-300 shadow-md"
+          >
+            <div>
+              <img
+                [src]="category.image"
+                [alt]="category.slug"
+                class="object-cover h-[450px] w-full"
+              />
+            </div>
+            <h2 class="text-2xl">{{ category.name }}</h2>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</ng-container>

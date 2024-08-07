@@ -1,0 +1,17 @@
+.scroll-up-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: transparent;
+  color: rgb(105, 156, 249);
+  border: 1px solid rgb(105, 156, 249);
+  border-radius: 5px;
+  cursor: pointer;
+  display: none; /* Initially hidden */
+}
+
+.scroll-up-btn.show {
+  display: block; /* Show when needed */
+}

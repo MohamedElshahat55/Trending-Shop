@@ -1,0 +1,189 @@
+<section
+  class="px-10 md:px-0 md:w-1/3 mx-auto container text-center font-karla h-screen flex flex-col mt-10"
+>
+  <h2 class="text-3xl my-4">Register</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <!-- Name Field -->
+    <div>
+      <div class="relative mb-6">
+        <div
+          class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+        >
+          <svg
+            class="w-4 h-4 text-gray-500"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"
+            />
+          </svg>
+        </div>
+        <input
+          type="text"
+          formControlName="name"
+          id="name"
+          [ngClass]="{
+            'border-red-500': name?.invalid && (name?.dirty || name?.touched),
+            'border-gray-300': !(
+              name?.invalid &&
+              (name?.dirty || name?.touched)
+            )
+          }"
+          class="dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-12 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+          placeholder="Your Name*"
+        />
+        <div
+          class="text-start text-red-600"
+          *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+        >
+          <em *ngIf="name?.errors?.['required']">*Name is required.</em>
+        </div>
+      </div>
+    </div>
+    <!-- Email Field -->
+    <div>
+      <div class="relative mb-6">
+        <div
+          class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+        >
+          <svg
+            class="w-4 h-4 text-gray-500"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 16"
+          >
+            <path
+              d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"
+            />
+            <path
+              d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"
+            />
+          </svg>
+        </div>
+        <input
+          formControlName="email"
+          type="text"
+          [ngClass]="{
+            'border-red-500':
+              email?.invalid && (email?.dirty || email?.touched),
+            'border-gray-300': !(
+              email?.invalid &&
+              (email?.dirty || email?.touched)
+            )
+          }"
+          class="dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-12 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+          placeholder="Email Address*"
+        />
+        <div
+          *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+          class="text-start text-red-600"
+        >
+          <div *ngIf="email?.errors?.['required']">*Email is required.</div>
+          <div *ngIf="email?.errors?.['email']">*Invalid email address.</div>
+        </div>
+      </div>
+    </div>
+    <!-- Password Field -->
+    <div class="mb-6">
+      <input
+        formControlName="password"
+        type="password"
+        [ngClass]="{
+          'border-red-500':
+            password?.invalid && (password?.dirty || password?.touched),
+          'border-gray-300': !(
+            password?.invalid &&
+            (password?.dirty || password?.touched)
+          )
+        }"
+        class="dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-12 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Password*"
+      />
+      <div
+        *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+        class="text-start text-red-600"
+      >
+        <div *ngIf="password?.errors?.['required']">*Password is required.</div>
+        <div *ngIf="password?.errors?.['minlength']">
+          *Password must be at least 6 characters long.
+        </div>
+      </div>
+    </div>
+    <!-- Confirm Password Field -->
+    <div class="mb-6">
+      <input
+        formControlName="rePassword"
+        type="password"
+        [ngClass]="{
+          'border-red-500':
+            confirmPassword?.invalid &&
+            (confirmPassword?.dirty || confirmPassword?.touched),
+          'border-gray-300': !(
+            confirmPassword?.invalid &&
+            (confirmPassword?.dirty || confirmPassword?.touched)
+          )
+        }"
+        class="dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-12 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Confirm Password*"
+      />
+      <div
+        *ngIf="
+          confirmPassword?.invalid &&
+          (confirmPassword?.dirty || confirmPassword?.touched)
+        "
+        class="text-start text-red-600"
+      >
+        <div *ngIf="confirmPassword?.errors?.['required']">
+          *Confirm Password is required.
+        </div>
+        <div *ngIf="confirmPassword?.errors?.['minlength']">
+          *Confirm Password must be at least 6 characters long.
+        </div>
+        <div *ngIf="confirmPassword?.errors?.['mustMatch']">
+          *Passwords must match.
+        </div>
+      </div>
+    </div>
+    <!-- Phone Field -->
+    <div class="mb-6">
+      <input
+        formControlName="phone"
+        type="tel"
+        class="dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 h-12 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        placeholder="Phone*"
+        [ngClass]="{
+          'border-red-500': phone?.invalid && (phone?.dirty || phone?.touched),
+          'border-gray-300': !(
+            phone?.invalid &&
+            (phone?.dirty || phone?.touched)
+          )
+        }"
+      />
+      <div
+        *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)"
+        class="text-start text-red-600"
+      >
+        <div *ngIf="phone?.errors?.['required']">*Phone is required.</div>
+        <div *ngIf="phone?.errors?.['pattern']">*Invalid phone number.</div>
+      </div>
+    </div>
+    <div>
+      <button
+        type="submit"
+        [disabled]="registerForm.invalid"
+        class="dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 disabled:bg-blue-100 bg-blue-500 text-white w-full py-2 text-center font-mono hover:bg-blue-800 transition-colors ease-in-out"
+      >
+        REGISTER
+      </button>
+    </div>
+    <div class="text-center mt-5 cursor-pointer">
+      <a routerLink="/auth/login" class="underline text-blue-500"
+        >Log in to your account!</a
+      >
+    </div>
+  </form>
+</section>

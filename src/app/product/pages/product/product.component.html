@@ -1,0 +1,105 @@
+<div class="flex">
+  <div class="w-[200px] h-screen p-4">
+    <ng-container *ngIf="categories$ | async as categories">
+      <div class="flex flex-col justify-center items-start gap-8">
+        <div
+          *ngFor="let category of categories"
+          class="flex justify-around items-center gap-2 hover:bg-slate-200 hover:p-3 transition-all ease-in-out"
+        >
+          <div>
+            <img
+              class="rounded-full h-5 object-cover"
+              [src]="category.image"
+              [alt]="category.slug"
+            />
+          </div>
+          <a
+            class="dark:text-slate-400 text-black text-sm md:text-lg font-karla cursor-pointer hover:text-slate-400 dark:hover:text-black"
+          >
+            {{ category.name }}
+          </a>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="w-5/6 md:px-4">
+    <!-- SelectBox Component -->
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <app-selectbox
+          [options]="priceOptions"
+          (valueSelected)="onValueSelected($event)"
+        >
+          <option value="" selected>Sorted By Price</option></app-selectbox
+        >
+        <app-selectbox
+          [options]="brandOptions"
+          (valueSelected)="onValueSelected($event)"
+        >
+          <option value="" selected>Sorted By Brand</option>
+        </app-selectbox>
+      </div>
+      <!-- SelectBox Component -->
+      <!-- Search Component -->
+      <app-search
+        class="mt-4 mx-auto md:mx-0"
+        (searchValueChange)="handleSearchValueChange($event)"
+      ></app-search>
+      <!-- Search Component -->
+    </div>
+    <div
+      class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 md:gap-3 px-4 md:px-0"
+    >
+      <!-- If loading, show skeletons -->
+      <ng-container *ngIf="loading; else content">
+        <app-skeleton *ngFor="let i of [1, 2, 3, 4]"></app-skeleton>
+      </ng-container>
+      <!-- If not loading, show either product cards or no products message -->
+      <ng-template #content>
+        <ng-container *ngIf="productsCount; else noProducts">
+          <app-product-card
+            [product]="product"
+            *ngFor="
+              let product of products
+                | paginate
+                  : {
+                      id: 'productsPagaination',
+                      itemsPerPage: pageSize,
+                      currentPage: currentPage,
+                      totalItems: total
+                    }
+            "
+          ></app-product-card>
+        </ng-container>
+      </ng-template>
+    </div>
+  </div>
+  <!-- No products template -->
+  <ng-template #noProducts>
+    <div class="md:w-[500px] px-5">
+      <img src="./assets/no-product.png" class="w-full" />
+    </div>
+  </ng-template>
+</div>
+
+<div
+  class="py-4 flex items-center justify-center dark:text-white"
+  *ngIf="productsCount >= 15"
+>
+  <pagination-controls
+    id="productsPagaination"
+    (pageChange)="pageChanged($event)"
+    (pageBoundsCorrection)="pageChanged($event)"
+    [maxSize]="9"
+    [directionLinks]="true"
+    [autoHide]="true"
+    [responsive]="true"
+    previousLabel="Previous"
+    nextLabel="Next"
+    screenReaderPaginationLabel="Pagination"
+    screenReaderPageLabel="page"
+    screenReaderCurrentLabel="You're on page"
+    class="dark:text-white"
+  >
+  </pagination-controls>
+</div>

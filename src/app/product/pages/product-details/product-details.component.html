@@ -1,0 +1,33 @@
+<section class="md:w-1/2 rounded-lg shadow-md mx-auto mt-10 font-mono">
+  <div class="flex flex-col gap-2 justify-center container">
+    <div class="mx-auto">
+      <img
+        [src]="product.imageCover"
+        [alt]="product.slug"
+        class="object-cover bg-cover h-32 w-32 md:h-full md:w-full"
+      />
+    </div>
+    <div class="md:mt-4 p-4">
+      <h2 class="text-sm md:text-2xl">{{ product.title }}</h2>
+      <div class="md:my-2 text-sm md:text-xl">
+        Brand: {{ product.brand.name }}
+      </div>
+      <p class="text-slate-400 text-sm md:text-xl my-3">
+        {{ product.description }}
+      </p>
+      <p class="md:my-3 text-sm md:text-xl">quantity: {{ product.quantity }}</p>
+      <p class="md:my-3 text-sm md:text-xl">
+        Ratings Average: {{ product.ratingsAverage }}
+      </p>
+      <p class="text-sm md:text-xl">
+        Price: {{ product.price | currency : "USD" }}
+      </p>
+      <button
+        (click)="addProductToCart(product.id)"
+        class="px-2 py-1 my-4 text-black bg-blue-300 hover:bg-blue-600 border border-blue-300 transition-colors"
+      >
+        Add to cart
+      </button>
+    </div>
+  </div>
+</section>

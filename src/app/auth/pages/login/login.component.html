@@ -1,0 +1,99 @@
+<div class="flex gap-2 justify-between">
+  <section
+    class="px-3 md:px-10 md:w-1/2 mx-auto text-center font-karla h-screen flex md:justify-center flex-col mt-10"
+  >
+    <h2 class="text-3xl my-4">Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Email Field -->
+      <div>
+        <div class="relative mb-6">
+          <div
+            class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+          >
+            <svg
+              class="w-4 h-4 text-gray-500"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 20 16"
+            >
+              <path
+                d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"
+              />
+              <path
+                d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"
+              />
+            </svg>
+          </div>
+          <input
+            type="text"
+            formControlName="email"
+            [ngClass]="{
+              'border-red-500':
+                email?.invalid && (email?.dirty || email?.touched),
+              'border-gray-300': !(
+                email?.invalid &&
+                (email?.dirty || email?.touched)
+              )
+            }"
+            class="h-12 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Email Address*"
+          />
+          <div
+            *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+            class="text-start text-red-600"
+          >
+            <div *ngIf="email?.errors?.['required']">*Email is required.</div>
+            <div *ngIf="email?.errors?.['email']">*Invalid email address.</div>
+          </div>
+        </div>
+      </div>
+      <!-- Password Field -->
+      <div class="mb-6">
+        <input
+          type="password"
+          formControlName="password"
+          [ngClass]="{
+            'border-red-500':
+              password?.invalid && (password?.dirty || password?.touched),
+            'border-gray-300': !(
+              password?.invalid &&
+              (password?.dirty || password?.touched)
+            )
+          }"
+          class="h-12 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Password*"
+        />
+        <div
+          *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+          class="text-start text-red-600"
+        >
+          <div *ngIf="password?.errors?.['required']">
+            *Password is required.
+          </div>
+          <div *ngIf="password?.errors?.['minlength']">
+            *Password must be at least 6 characters long.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          [disabled]="loginForm.invalid"
+          class="disabled:bg-blue-100 bg-blue-500 text-white w-full py-2 text-center font-mono hover:bg-blue-800 transition-colors ease-in-out"
+        >
+          LOGIN
+        </button>
+      </div>
+      <div class="text-center mt-5 cursor-pointer">
+        <a routerLink="/auth/register" class="underline text-blue-500"
+          >Create a new account!
+        </a>
+      </div>
+    </form>
+  </section>
+  <div
+    class="hidden md:block md:w-1/2 bg-login bg-no-repeat bg-cover bg-left relative"
+  ></div>
+</div>

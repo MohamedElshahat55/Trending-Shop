@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@layer tailwind-base, primeng, tailwind-utilities;
+        
+@layer tailwind-base {
+    @tailwind base;
+
+    
+}
+
+@layer tailwind-utilities {
+    @tailwind components;
+    @tailwind utilities;
+    
+}
+
+@layer utilities {
+    .overlay{
+        background-image:  url('./assets/heroimage.jpg');
+    }
+    .bg-login{
+        background-image: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0)), url('./assets/login.webp');
+    }
+}
